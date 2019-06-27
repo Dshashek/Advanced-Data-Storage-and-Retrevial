@@ -168,7 +168,7 @@
     {
      "data": {
       "text/plain": [
-       "<matplotlib.axes._subplots.AxesSubplot at 0x1ab5fb61860>"
+       "<matplotlib.axes._subplots.AxesSubplot at 0x20766b0b080>"
       ]
      },
      "execution_count": 9,
@@ -478,13 +478,13 @@
    "cell_type": "code",
    "execution_count": 14,
    "metadata": {
-    "scrolled": false
+    "scrolled": true
    },
    "outputs": [
     {
      "data": {
       "text/plain": [
-       "<matplotlib.legend.Legend at 0x1ab60fb0f28>"
+       "<matplotlib.legend.Legend at 0x2076b4cf320>"
       ]
      },
      "execution_count": 14,
@@ -528,7 +528,7 @@
    "source": [
     "#Create Dict for Flask precip\n",
     "precip_data_df = precip_data_df.set_index('date')\n",
-    "precip_data_dict = precip_data_df.to_dict()"
+    "precip_data_dict = precip_data_df.to_dict"
    ]
   },
   {
@@ -538,14 +538,12 @@
    "outputs": [],
    "source": [
     "#create query for Flask tobs\n",
-    "flask_tobs_data = (session.query(Measurement.date,Measurement.station,Measurement.tobs).filter(Measurement.station == station_count_df['station'][0]).filter(Measurement.date > yearback).all())\n",
-    "flask_tobs_data2 = (session.query(Measurement.date,Measurement.station,Measurement.tobs).filter(Measurement.station == station_count_df['station'][0]).filter(Measurement.date > yearback).all())\n",
-    "flask_precip_data = (session.query(Measurement.date,Measurement.prcp).filter(Measurement.station == station_count_df['station'][0]).filter(Measurement.date > yearback).all())\n"
+    "flask_tobs_data = (session.query(Measurement.tobs,Measurement.date,Measurement.station).filter(Measurement.station == station_count_df['station'][0]).filter(Measurement.date > yearback).all())\n"
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 17,
+   "execution_count": 18,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -557,61 +555,21 @@
   },
   {
    "cell_type": "code",
-   "execution_count": null,
+   "execution_count": 23,
    "metadata": {},
    "outputs": [
     {
-     "name": "stdout",
-     "output_type": "stream",
-     "text": [
-      " * Serving Flask app \"__main__\" (lazy loading)\n",
-      " * Environment: production\n",
-      "   WARNING: Do not use the development server in a production environment.\n",
-      "   Use a production WSGI server instead.\n",
-      " * Debug mode: off\n"
-     ]
-    },
-    {
-     "name": "stderr",
-     "output_type": "stream",
-     "text": [
-      " * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)\n",
-      "127.0.0.1 - - [27/Jun/2019 18:00:58] \"GET /api/v1.0/tobs HTTP/1.1\" 200 -\n"
-     ]
-    },
-    {
-     "name": "stdout",
-     "output_type": "stream",
-     "text": [
-      "Server recieved request for Tobs Ovservations\n"
-     ]
-    },
-    {
-     "name": "stderr",
-     "output_type": "stream",
-     "text": [
-      "127.0.0.1 - - [27/Jun/2019 18:01:01] \"GET /api/v1.0/tobs HTTP/1.1\" 200 -\n"
-     ]
-    },
-    {
-     "name": "stdout",
-     "output_type": "stream",
-     "text": [
-      "Server recieved request for Tobs Ovservations\n"
-     ]
-    },
-    {
-     "name": "stderr",
-     "output_type": "stream",
-     "text": [
-      "127.0.0.1 - - [27/Jun/2019 18:01:08] \"GET /api/v1.0/precipitation HTTP/1.1\" 200 -\n"
-     ]
-    },
-    {
-     "name": "stdout",
-     "output_type": "stream",
-     "text": [
-      "Server recieved request for Temperature\n"
+     "ename": "AssertionError",
+     "evalue": "View function mapping is overwriting an existing endpoint function: home",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[1;31m---------------------------------------------------------------------------\u001b[0m",
+      "\u001b[1;31mAssertionError\u001b[0m                            Traceback (most recent call last)",
+      "\u001b[1;32m<ipython-input-23-ccd196e6d219>\u001b[0m in \u001b[0;36m<module>\u001b[1;34m\u001b[0m\n\u001b[0;32m      1\u001b[0m \u001b[1;31m#define index\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[1;32m----> 2\u001b[1;33m \u001b[1;33m@\u001b[0m\u001b[0mapp\u001b[0m\u001b[1;33m.\u001b[0m\u001b[0mroute\u001b[0m\u001b[1;33m(\u001b[0m\u001b[1;34m'/'\u001b[0m\u001b[1;33m)\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0m\u001b[0;32m      3\u001b[0m \u001b[1;32mdef\u001b[0m \u001b[0mhome\u001b[0m\u001b[1;33m(\u001b[0m\u001b[1;33m)\u001b[0m\u001b[1;33m:\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0;32m      4\u001b[0m     \u001b[0mprint\u001b[0m\u001b[1;33m(\u001b[0m\u001b[1;34m'Server recieved request for Home'\u001b[0m\u001b[1;33m)\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0;32m      5\u001b[0m     return( f\"Welcome to the Example Climate API<br\\>\"\n",
+      "\u001b[1;32m~\\anaconda\\Anaconda3\\lib\\site-packages\\flask\\app.py\u001b[0m in \u001b[0;36mdecorator\u001b[1;34m(f)\u001b[0m\n\u001b[0;32m   1248\u001b[0m         \u001b[1;32mdef\u001b[0m \u001b[0mdecorator\u001b[0m\u001b[1;33m(\u001b[0m\u001b[0mf\u001b[0m\u001b[1;33m)\u001b[0m\u001b[1;33m:\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0;32m   1249\u001b[0m             \u001b[0mendpoint\u001b[0m \u001b[1;33m=\u001b[0m \u001b[0moptions\u001b[0m\u001b[1;33m.\u001b[0m\u001b[0mpop\u001b[0m\u001b[1;33m(\u001b[0m\u001b[1;34m'endpoint'\u001b[0m\u001b[1;33m,\u001b[0m \u001b[1;32mNone\u001b[0m\u001b[1;33m)\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[1;32m-> 1250\u001b[1;33m             \u001b[0mself\u001b[0m\u001b[1;33m.\u001b[0m\u001b[0madd_url_rule\u001b[0m\u001b[1;33m(\u001b[0m\u001b[0mrule\u001b[0m\u001b[1;33m,\u001b[0m \u001b[0mendpoint\u001b[0m\u001b[1;33m,\u001b[0m \u001b[0mf\u001b[0m\u001b[1;33m,\u001b[0m \u001b[1;33m**\u001b[0m\u001b[0moptions\u001b[0m\u001b[1;33m)\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0m\u001b[0;32m   1251\u001b[0m             \u001b[1;32mreturn\u001b[0m \u001b[0mf\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0;32m   1252\u001b[0m         \u001b[1;32mreturn\u001b[0m \u001b[0mdecorator\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n",
+      "\u001b[1;32m~\\anaconda\\Anaconda3\\lib\\site-packages\\flask\\app.py\u001b[0m in \u001b[0;36mwrapper_func\u001b[1;34m(self, *args, **kwargs)\u001b[0m\n\u001b[0;32m     64\u001b[0m                 \u001b[1;34m'database models and everything related at a central place '\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0;32m     65\u001b[0m                 'before the application starts serving requests.')\n\u001b[1;32m---> 66\u001b[1;33m         \u001b[1;32mreturn\u001b[0m \u001b[0mf\u001b[0m\u001b[1;33m(\u001b[0m\u001b[0mself\u001b[0m\u001b[1;33m,\u001b[0m \u001b[1;33m*\u001b[0m\u001b[0margs\u001b[0m\u001b[1;33m,\u001b[0m \u001b[1;33m**\u001b[0m\u001b[0mkwargs\u001b[0m\u001b[1;33m)\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0m\u001b[0;32m     67\u001b[0m     \u001b[1;32mreturn\u001b[0m \u001b[0mupdate_wrapper\u001b[0m\u001b[1;33m(\u001b[0m\u001b[0mwrapper_func\u001b[0m\u001b[1;33m,\u001b[0m \u001b[0mf\u001b[0m\u001b[1;33m)\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0;32m     68\u001b[0m \u001b[1;33m\u001b[0m\u001b[0m\n",
+      "\u001b[1;32m~\\anaconda\\Anaconda3\\lib\\site-packages\\flask\\app.py\u001b[0m in \u001b[0;36madd_url_rule\u001b[1;34m(self, rule, endpoint, view_func, provide_automatic_options, **options)\u001b[0m\n\u001b[0;32m   1219\u001b[0m             \u001b[1;32mif\u001b[0m \u001b[0mold_func\u001b[0m \u001b[1;32mis\u001b[0m \u001b[1;32mnot\u001b[0m \u001b[1;32mNone\u001b[0m \u001b[1;32mand\u001b[0m \u001b[0mold_func\u001b[0m \u001b[1;33m!=\u001b[0m \u001b[0mview_func\u001b[0m\u001b[1;33m:\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0;32m   1220\u001b[0m                 raise AssertionError('View function mapping is overwriting an '\n\u001b[1;32m-> 1221\u001b[1;33m                                      'existing endpoint function: %s' % endpoint)\n\u001b[0m\u001b[0;32m   1222\u001b[0m             \u001b[0mself\u001b[0m\u001b[1;33m.\u001b[0m\u001b[0mview_functions\u001b[0m\u001b[1;33m[\u001b[0m\u001b[0mendpoint\u001b[0m\u001b[1;33m]\u001b[0m \u001b[1;33m=\u001b[0m \u001b[0mview_func\u001b[0m\u001b[1;33m\u001b[0m\u001b[1;33m\u001b[0m\u001b[0m\n\u001b[0;32m   1223\u001b[0m \u001b[1;33m\u001b[0m\u001b[0m\n",
+      "\u001b[1;31mAssertionError\u001b[0m: View function mapping is overwriting an existing endpoint function: home"
      ]
     }
    ],
@@ -630,7 +588,7 @@
     "@app.route('/api/v1.0/precipitation')\n",
     "def precip():\n",
     "    print('Server recieved request for Temperature')\n",
-    "    return(jsonify(flask_precip_data))\n",
+    "    return(jsonify(precip_data_dict))\n",
     "    \n",
     "@app.route('/api/v1.0/stations')\n",
     "def r_stations():\n",
@@ -642,19 +600,10 @@
     "    print('Server recieved request for Tobs Ovservations')\n",
     "    return(jsonify(flask_tobs_data)\n",
     "          )\n",
-    "@app.route('/api/v1.0/<start><end>')\n",
-    "def tops():\n",
-    "    print('Sever recieved request for date-range')\n",
-    "    return(if <start> != '' & <end> != '':\n",
-    "           (session.query(Measurement.date,Measurement.station,Measurement.tobs).filter(Measurement.station == station_count_df['station'][0]).filter(Measurement.date > yearback).all())\n",
-    "           else if <start> != '' and <end> = \"\":\n",
-    "           \n",
-    "           else:\n",
-    "    )\n",
-    "    \n",
-    "    \n",
+    "\n",
+    "        \n",
     "if __name__ == \"__main__\":\n",
-    "    app.run(debug=False)"
+    "    app.run(debug=True)"
    ]
   },
   {
